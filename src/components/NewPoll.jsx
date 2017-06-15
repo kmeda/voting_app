@@ -7,7 +7,11 @@ class NewPoll extends Component {
 
   render(){
     return (
-      <div>New </div>
+      <div>
+      <div>Create New Poll and push data to firebase</div>
+      <div>Re-render new poll component</div>  
+      </div>
+
     );
   }
 };

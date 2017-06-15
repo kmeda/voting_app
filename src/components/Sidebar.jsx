@@ -19,10 +19,10 @@ class Sidebar extends Component {
 
           </div>
           <div className="routes-container">
-            <Link to="/">Home</Link>
-            <Link to="/mypolls">My Polls</Link>
-            <Link to="/newpoll">New Poll</Link>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/" className="routes">Home</Link>
+            <Link to="/mypolls" className="routes">My Polls</Link>
+            <Link to="/newpoll" className="routes">New Poll</Link>
+            <Link to="/dashboard" className="routes">Dashboard</Link>
 
             </div>
         </div>

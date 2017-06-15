@@ -7,7 +7,11 @@ class MyPolls extends Component {
 
   render(){
     return (
-      <div>My Polls</div>
+      <div>
+      <div>if logged in Fetch My Polls from Firebase.</div>
+      <div>Open voting window and chart on click</div>
+      <div>I can vote, delete or edit my polls</div>
+      </div>
     );
   }
 };
