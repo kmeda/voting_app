@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-
+import twitter_bird from '../assets/twitter-logo.png';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 class Sidebar extends Component {
@@ -13,7 +13,7 @@ class Sidebar extends Component {
         <div>
           <div className="login-container">
             <div className="twitter-logo">
-              <img src="/src/assets/twitter-logo.png"  alt="boohoo"/>
+              <img src={twitter_bird}  alt="boohoo"/>
             </div>
             <span className="login-link">Login</span>
 
