@@ -7,7 +7,9 @@ class Dashboard extends Component {
 
   render(){
     return (
-      <div>Render all polls with charts and add pagination</div>
+      <div className="app-body-inner">
+        Render all polls with charts and add pagination
+      </div>
     );
   }
 };

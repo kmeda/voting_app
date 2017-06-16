@@ -1,9 +1,11 @@
 import React, {Component} from "react";
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
-import UserPolls from './UserPolls.jsx';
+
+import Polls from './Polls.jsx';
 import MakePoll from './MakePoll.jsx';
 
-class MyPolls extends Component {
+class AllPolls extends Component {
   constructor(props){
     super(props);
   }
@@ -11,10 +13,10 @@ class MyPolls extends Component {
   render(){
     return (
       <div className="app-body-inner">
-      <UserPolls />
+        <Polls />
       </div>
     );
   }
 };
 
-export default MyPolls;
+export default AllPolls;
