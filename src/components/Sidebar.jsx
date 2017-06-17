@@ -22,9 +22,7 @@ class Sidebar extends Component {
             <Link to="/home" className="routes">Home</Link>
             <Link to="/allpolls" className="routes">All Polls</Link>
             <Link to="/mypolls" className="routes">My Polls</Link>
-            <Link to="/newpoll" className="routes">New Poll</Link>
             <Link to="/dashboard" className="routes">Dashboard</Link>
-
             </div>
         </div>
 

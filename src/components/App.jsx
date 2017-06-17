@@ -33,7 +33,6 @@ class App extends Component {
               <Route exact path="/mypolls" component={MyPolls}/>
               <Route path="/allpolls/123" component={MakePoll}/>
               <Route path="/mypolls/123" component={MakePoll}/>
-              <Route path="/newpoll"  component={NewPoll}/>
               <Route path="/dashboard"  component={Dashboard}/>
             </Switch>
 

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 import UserPolls from './UserPolls.jsx';
-import MakePoll from './MakePoll.jsx';
+import NewPoll from './NewPoll.jsx';
 
 class MyPolls extends Component {
   constructor(props){
@@ -12,6 +12,7 @@ class MyPolls extends Component {
     return (
       <div className="app-body-inner">
       <UserPolls />
+      <NewPoll />
       </div>
     );
   }
