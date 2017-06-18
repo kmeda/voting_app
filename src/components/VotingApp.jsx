@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import * as Redux from 'react-redux';
 
 import Sidebar from "./Sidebar.jsx";
 import Home from './Home.jsx';
@@ -10,13 +11,12 @@ import MakePoll from "./MakePoll.jsx";
 import Dashboard from "./Dashboard.jsx";
 
 
-class App extends Component {
+class VotingApp extends Component {
   constructor(props){
     super(props);
   }
 
   render(){
-    const forceRefresh = ()=> true;
 
     return (
       <Router>
@@ -24,7 +24,6 @@ class App extends Component {
         <div className="header">FCC Voting App</div>
         <div className="body-btm">
           <Sidebar />
-
           <div className="app-body">
             <Switch>
               <Route exact path="/" component={Home}/>
@@ -35,9 +34,7 @@ class App extends Component {
               <Route path="/mypolls/123" component={MakePoll}/>
               <Route path="/dashboard"  component={Dashboard}/>
             </Switch>
-
           </div>
-
         </div>
       </div>
       </Router>
@@ -45,4 +42,4 @@ class App extends Component {
   }
 };
 
-export default App;
+export default VotingApp;

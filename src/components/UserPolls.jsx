@@ -17,6 +17,24 @@ class UserPolls extends Component {
         <hr/>
         <ul className="list-group">
           <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
+          <Link to="/mypolls/123"><li className="list-group-item">List of all private polls.</li></Link>
         </ul>
 
       </div>
