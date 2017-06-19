@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
+import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom';
 import firebase, {firebaseRef, twitterProvider} from './firebase/index.js';
 
 const actions = require('./actions/actions.jsx');
@@ -14,8 +15,11 @@ import '../styles/main.scss';
 firebase.auth().onAuthStateChanged((user)=>{
   if (user) {
     store.dispatch(actions.login(user.uid, user.displayName, user.photoURL));
+    store.dispatch(actions.startAddUserPolls());
+
   } else {
     store.dispatch(actions.logout());
+    
   }
 });
 

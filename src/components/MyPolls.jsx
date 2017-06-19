@@ -1,7 +1,11 @@
 import React, {Component} from "react";
+import * as Redux from 'react-redux';
+import firebase, {firebaseRef} from '../firebase/index.js';
+const actions = require('../actions/actions.jsx');
 
 import UserPolls from './UserPolls.jsx';
 import NewPoll from './NewPoll.jsx';
+
 
 class MyPolls extends Component {
   constructor(props){
@@ -11,11 +15,17 @@ class MyPolls extends Component {
   render(){
     return (
       <div className="app-body-inner">
-      <UserPolls />
+      <UserPolls userPolls={this.props.polls}/>
       <NewPoll />
       </div>
     );
   }
 };
 
-export default MyPolls;
+export default Redux.connect(
+  (state) => {
+    return {
+      polls: state.polls
+    }
+  }
+)(MyPolls);

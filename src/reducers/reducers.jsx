@@ -6,6 +6,13 @@ export var pollsReducer = (state=[], action)=>{
         ...state,
         action.poll
       ];
+    case "ADD_POLLS":
+    return [
+      ...state,
+      action.polls
+    ];
+    case "LOGOUT":
+    return [];
     default:
     return state;
   }

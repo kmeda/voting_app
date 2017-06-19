@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import twitter_bird from '../assets/twitter-logo.png';
-import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, NavLink, withRouter } from 'react-router-dom';
 import * as Redux from 'react-redux';
 
 const actions = require('../actions/actions.jsx');
@@ -18,10 +18,8 @@ class Sidebar extends Component {
   handleLogout(){
     var {dispatch} = this.props;
     dispatch(actions.startLogout());
-  }
+    this.props.history.push("/home");
 
-  componentDidUpdate(){
-    this.renderSidebar();
   }
 
   renderSidebar(){
@@ -79,13 +77,14 @@ class Sidebar extends Component {
   }
 }
 
-export default Redux.connect(
+export default withRouter(Redux.connect(
   (state) => {
     return {
       user: state.auth.uid,
       username: state.auth.name,
-      photoURL: state.auth.photoURL
+      photoURL: state.auth.photoURL,
+      polls: state.polls
     }
 
   }
-)(Sidebar);
+)(Sidebar));

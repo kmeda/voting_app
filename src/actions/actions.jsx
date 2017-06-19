@@ -19,6 +19,34 @@ export var startAddPoll = (poll) => {
   };
 }
 
+export var addPolls = (polls)=>{
+  return {
+    type: "ADD_POLLS",
+    polls
+  }
+}
+
+export var startAddUserPolls = ()=>{
+  return (dispatch, getState)=>{
+    var uid = getState().auth.uid;
+    var pollsRef = firebaseRef.child(`users/${uid}/polls`);
+
+    return pollsRef.once("value").then((snapshot)=>{
+        var polls = snapshot.val() || {};
+        var parsedPolls = [];
+
+        Object.keys(polls).forEach((pollId)=>{
+          parsedPolls.push({
+            id: pollId,
+            ...polls[pollId]
+          });
+        });
+        dispatch(addPolls(parsedPolls));
+    });
+
+  };
+};
+
 export var moreOptions = (inputCountArray)=>{
   return {
     type: "MORE_OPTIONS",
