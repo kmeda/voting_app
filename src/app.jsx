@@ -14,10 +14,8 @@ import '../styles/main.scss';
 firebase.auth().onAuthStateChanged((user)=>{
   if (user) {
     store.dispatch(actions.login(user.uid, user.displayName, user.photoURL));
-    console.log("USER_ID", user);
   } else {
     store.dispatch(actions.logout());
-    console.log("User Logged out");
   }
 });
 

@@ -24,7 +24,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[hash].js'
+    filename: '[name].[hash].js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -72,7 +73,10 @@ module.exports = {
     ]
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    host: '0.0.0.0',
+    port: 8080,
+    disableHostCheck: true
   },
 
   plugins: [

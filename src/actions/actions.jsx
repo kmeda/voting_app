@@ -7,10 +7,29 @@ export var addPoll = (poll)=>{
   }
 }
 
-export var addOptions = (inputCountArray)=>{
+export var moreOptions = (inputCountArray)=>{
   return {
-    type: "ADD_OPTIONS",
+    type: "MORE_OPTIONS",
     inputCountArray
+  }
+}
+
+export var captureInputs = (inputs) => {
+  return {
+    type: "CAPTURE_INPUTS",
+    inputs
+  }
+}
+
+export var validateInput = () => {
+    return {
+      type: "ON_VALID_INPUT"
+    }
+}
+
+export var clearInputs = ()=>{
+  return {
+    type: "CLEAR_FORM_INPUTS"
   }
 }
 

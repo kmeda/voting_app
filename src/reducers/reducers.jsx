@@ -11,13 +11,26 @@ export var pollsReducer = (state=[], action)=>{
   }
 }
 
-export var addOptionsReducer = (state={inputs: ["input-0", "input-1"]}, action) =>{
+var pollInput = {
+  options: ["input0", "input1"],
+  capturedInputs: {
+    pollName: '',
+    pollOptions: []
+  }
+}
+
+export var pollInputReducer = (state=pollInput, action) =>{
   switch (action.type) {
-    case "ADD_OPTIONS":
+    case "MORE_OPTIONS":
       return {
         ...state,
-      inputs: action.inputCountArray
+      options: action.inputCountArray
       };
+    case "CAPTURE_INPUTS":
+    return {
+      ...state,
+      capturedInputs: action.inputs
+    }
     default:
       return state;
   }

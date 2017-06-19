@@ -5,30 +5,61 @@ const actions = require('../actions/actions.jsx');
 class NewPoll extends Component {
   constructor(props){
     super(props);
-    {/*this.handleSubmit.bind(this);*/}
+
+  }
+
+  handleChange(e){
+    e.preventDefault();
+    var {dispatch} = this.props;
+
+    var option_keys = Object.keys(this.refs);
+    var filter_options = [this.refs].map((option)=>{
+         return option_keys.map((key)=>{
+          return option[key].value;
+        });
+    });
+    var options = filter_options[0].slice(1).filter((option)=>{
+                    return option !== '';
+                  });
+
+    var poll = { pollName: this.refs.pollName.value,
+                 pollOptions: options }
+
+    dispatch(actions.captureInputs(poll));
+
   }
 
   handleSubmit(e){
     e.preventDefault();
-    var poll = {pollname: this.refs.pollname.value,
-                options: [this.refs.option1.value, this.refs.option2.value]
-                }
-    console.log(this.refs.option1.value);
     var {dispatch} = this.props;
-    dispatch(actions.addPoll(poll));
+
+    //push to firebase under userid
+
+    //clear form input - reset all refs and reset options to 2
+
+    var option_keys = Object.keys(this.refs);
+    [this.refs].map((option)=>{
+         return option_keys.map((key)=>{
+          option[key].value = '';
+        });
+    });
+
   }
 
   addOptions(e) {
     e.preventDefault();
-    var {dispatch, inputs} = this.props;
-    var newInput = `input-${inputs.length}`;
-    var setInputArray = inputs.concat(newInput);
-    console.log(setInputArray);
-    dispatch(actions.addOptions(setInputArray));
+    var {dispatch, options} = this.props;
+    var newInput = `input${options.length}`;
+    var setInputArray = options.concat(newInput);
+    dispatch(actions.moreOptions(setInputArray));
   }
 
 
   render(){
+    var {capturedInputs} = this.props;
+
+    var isEnabled = capturedInputs.pollName.length > 0 && capturedInputs.pollOptions.length >= 2;
+
     return (
       <div className="polls-container new-poll">
         <h4>New Poll</h4>
@@ -36,13 +67,15 @@ class NewPoll extends Component {
         <form>
         	<div className="form-group">
         		<label className="control-label">Name your poll</label>
-        		<input className="form-control" id="name" name="name" type="text" ref="pollname"/>
+        		<input className="form-control" id="name" name="name" type="text" ref="pollName"
+              onChange={this.handleChange.bind(this)}/>
         	</div>
 
         	<div className="form-group">
-        		<label className="control-label requiredField">Options</label>
-                {this.props.inputs.map((input)=>{
-                  return <input className="form-control" key={input} type="text" ref={input}/>
+        		<label className="control-label requiredField">Enter atleast two or more Options</label>
+                {this.props.options.map((input)=>{
+                  return <input className="form-control" key={input} type="text" ref={input}
+                    onChange={this.handleChange.bind(this)}/>
                 })}
             <br/>
             <button className="btn btn-primary btn-full-width" name="submit" type="submit"
@@ -50,7 +83,7 @@ class NewPoll extends Component {
         	</div>
 
         	<div className="form-group">
-        		<button className="btn btn-primary btn-full-width" name="submit" type="submit"
+        		<button disabled={!isEnabled} className="btn btn-primary btn-full-width" name="submit" type="submit"
               onClick={this.handleSubmit.bind(this)}
               >Submit</button>
         	</div>
@@ -62,10 +95,14 @@ class NewPoll extends Component {
   }
 };
 
+
 export default Redux.connect(
   (state) => {
     return {
-      inputs: state.addOptions.inputs
+      options: state.pollInput.options,
+      capturedInputs: state.pollInput.capturedInputs,
+      polls: state.polls,
+      inputValidation: state.pollInput.inputValidation
     }
 
   }
