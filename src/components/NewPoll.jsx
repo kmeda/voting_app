@@ -1,11 +1,21 @@
 import React, {Component} from "react";
 import * as Redux from 'react-redux';
+import firebase, {firebaseRef} from '../firebase/index.js';
+
 const actions = require('../actions/actions.jsx');
 
 class NewPoll extends Component {
   constructor(props){
     super(props);
 
+  }
+
+  addOptions(e) {
+    e.preventDefault();
+    var {dispatch, options} = this.props;
+    var newInput = `input${options.length}`;
+    var setInputArray = options.concat(newInput);
+    dispatch(actions.moreOptions(setInputArray));
   }
 
   handleChange(e){
@@ -31,12 +41,12 @@ class NewPoll extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    var {dispatch} = this.props;
+    var {dispatch, capturedInputs} = this.props;
 
     //push to firebase under userid
+    dispatch(actions.startAddPoll(capturedInputs));
 
     //clear form input - reset all refs and reset options to 2
-
     var option_keys = Object.keys(this.refs);
     [this.refs].map((option)=>{
          return option_keys.map((key)=>{
@@ -46,13 +56,6 @@ class NewPoll extends Component {
 
   }
 
-  addOptions(e) {
-    e.preventDefault();
-    var {dispatch, options} = this.props;
-    var newInput = `input${options.length}`;
-    var setInputArray = options.concat(newInput);
-    dispatch(actions.moreOptions(setInputArray));
-  }
 
 
   render(){

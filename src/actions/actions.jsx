@@ -7,6 +7,21 @@ export var addPoll = (poll)=>{
   }
 }
 
+export var startAddPoll = (poll) => {
+  return (dispatch, getState)=>{
+
+    var uid = getState().auth.uid;
+    var pollRef = firebaseRef.child(`users/${uid}/polls`).push(poll);
+
+    pollRef.then(()=>{
+      dispatch(addPoll({
+        ...poll,
+        id: pollRef.key
+      }));
+    });
+  };
+}
+
 export var moreOptions = (inputCountArray)=>{
   return {
     type: "MORE_OPTIONS",
