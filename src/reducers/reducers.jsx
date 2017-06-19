@@ -31,6 +31,8 @@ export var pollInputReducer = (state=pollInput, action) =>{
       ...state,
       capturedInputs: action.inputs
     }
+    case "CLEAR_CAPTURED_INPUTS":
+    return pollInput;
     default:
       return state;
   }

@@ -18,6 +18,11 @@ class NewPoll extends Component {
     dispatch(actions.moreOptions(setInputArray));
   }
 
+  componentDidMount(){
+      var {dispatch} = this.props;
+      dispatch(actions.clearCapturedInputs());
+  }
+
   handleChange(e){
     e.preventDefault();
     var {dispatch} = this.props;
@@ -53,7 +58,7 @@ class NewPoll extends Component {
           option[key].value = '';
         });
     });
-
+    dispatch(actions.clearCapturedInputs());
   }
 
 

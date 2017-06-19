@@ -14,10 +14,7 @@ export var startAddPoll = (poll) => {
     var pollRef = firebaseRef.child(`users/${uid}/polls`).push(poll);
 
     pollRef.then(()=>{
-      dispatch(addPoll({
-        ...poll,
-        id: pollRef.key
-      }));
+      return;
     });
   };
 }
@@ -42,9 +39,9 @@ export var validateInput = () => {
     }
 }
 
-export var clearInputs = ()=>{
+export var clearCapturedInputs = ()=>{
   return {
-    type: "CLEAR_FORM_INPUTS"
+    type: "CLEAR_CAPTURED_INPUTS"
   }
 }
 
