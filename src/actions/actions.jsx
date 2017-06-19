@@ -7,6 +7,12 @@ export var addPoll = (poll)=>{
   }
 }
 
+export var addOptions = (inputCountArray)=>{
+  return {
+    type: "ADD_OPTIONS",
+    inputCountArray
+  }
+}
 
 export var startLogin = () => {
   return (dispatch, getState)=>{

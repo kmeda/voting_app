@@ -18,6 +18,16 @@ class NewPoll extends Component {
     dispatch(actions.addPoll(poll));
   }
 
+  addOptions(e) {
+    e.preventDefault();
+    var {dispatch, inputs} = this.props;
+    var newInput = `input-${inputs.length}`;
+    var setInputArray = inputs.concat(newInput);
+    console.log(setInputArray);
+    dispatch(actions.addOptions(setInputArray));
+  }
+
+
   render(){
     return (
       <div className="polls-container new-poll">
@@ -31,12 +41,12 @@ class NewPoll extends Component {
 
         	<div className="form-group">
         		<label className="control-label requiredField">Options</label>
-                <input className="form-control" id="email" name="email" type="text" ref="option1"/>
-                <input className="form-control" id="email" name="email" type="text" ref="option2"/>
-
+                {this.props.inputs.map((input)=>{
+                  return <input className="form-control" key={input} type="text" ref={input}/>
+                })}
             <br/>
             <button className="btn btn-primary btn-full-width" name="submit" type="submit"
-              onClick={(e)=> e.preventDefault()}>More Options</button>
+              onClick={this.addOptions.bind(this)}>More Options</button>
         	</div>
 
         	<div className="form-group">
@@ -52,4 +62,11 @@ class NewPoll extends Component {
   }
 };
 
-export default Redux.connect()(NewPoll);
+export default Redux.connect(
+  (state) => {
+    return {
+      inputs: state.addOptions.inputs
+    }
+
+  }
+)(NewPoll);
