@@ -10,32 +10,37 @@ import MakePoll from './MakePoll.jsx';
 class UserPolls extends Component {
   constructor(props){
     super(props);
-
   }
 
-  render(){
-    var {userPolls, user} = this.props;
-    var renderPollList = ()=>{
-      var myPolls = userPolls[0];
-      if (myPolls) {
-        myPolls.map((poll)=>{
-          return <li className="list-group-item" key={poll.id}>{poll.pollName}</li>
-        })
 
-      } else {
-        return <div>Loading...</div>
-      }
-    }
+componentDidMount(){
+  //clear polls and fetch new polls
+}
+
+renderPollList(){
+
+  var myPolls = this.props.userPolls[0];
+
+  if (myPolls) {
+    return (
+      <ul className="list-group">
+      {  myPolls.map((poll)=>{
+         return <li className="list-group-item" key={poll.id}>{poll.pollName}</li>
+        })}
+      </ul>
+    )
+  } else {
+    return <div>Loading...</div>
+  }
+}
+
+render(){
 
     return (
       <div className="polls-container">
-
         <h4>My Polls</h4>
         <hr/>
-        <ul className="list-group">
-          {renderPollList()}
-        </ul>
-
+        {this.renderPollList()}
       </div>
     );
   }
@@ -44,8 +49,7 @@ class UserPolls extends Component {
 export default Redux.connect(
   (state) => {
     return {
-      polls: state.polls,
-      user: state.auth.uid
+      userPolls: state.polls
     }
   }
 )(UserPolls);
