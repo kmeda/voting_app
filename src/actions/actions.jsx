@@ -57,7 +57,7 @@ export var startAddUserPolls = ()=>{
 export var startAddPublicPolls = ()=>{
   return (dispatch, getState)=>{
 
-    var pollsRef = firebaseRef.child(`users/RtdhpvdiXBMuVHzgaXCwLVopmAv1`);
+    var pollsRef = firebaseRef.child(`users`);
 
     return pollsRef.once("value").then((snapshot)=>{
         var users = snapshot.val() || {};

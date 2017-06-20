@@ -49,9 +49,10 @@ renderPollList(){
       return (
         <ul className="list-group">
         {  [myPolls].map((allPolls)=>{
+          console.log("All Polls: ",allPolls)
             return allPolls.map((polls)=>{
               var pollKeys= Object.keys(polls);
-              console.log("All Polls: ",polls);
+
               return pollKeys.map((key)=>{
                 return <Link to="/mypolls/123" key={key}><li className="list-group-item">{polls[key].pollName}</li></Link>
               })
