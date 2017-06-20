@@ -18,6 +18,18 @@ export var pollsReducer = (state=[], action)=>{
   }
 }
 
+export var publicPollsReducer = (state=[], action) => {
+  switch (action.type) {
+    case "ADD_PUBLIC_POLLS":
+      return [
+        ...state,
+        action.publicPolls
+      ];
+    default:
+      return state;
+  }
+}
+
 var pollInput = {
   options: ["input0", "input1"],
   capturedInputs: {

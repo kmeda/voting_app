@@ -40,7 +40,6 @@ class Sidebar extends Component {
             <NavLink to="/home" className="routes">Home</NavLink>
             <NavLink to="/allpolls" className="routes">All Polls</NavLink>
             <NavLink to="/mypolls" className="routes">My Polls</NavLink>
-            <NavLink to="/newpoll" className="routes">New Poll</NavLink>
             <NavLink to="/dashboard" className="routes">Dashboard</NavLink>
           </div>
 

@@ -13,7 +13,7 @@ class UserPolls extends Component {
   }
 
 
-componentDidMount(){
+componentDidUpdate(){
   //clear polls and fetch new polls
 }
 
@@ -22,15 +22,18 @@ renderPollList(){
   var myPolls = this.props.userPolls[0];
 
   if (myPolls) {
+    console.log("My Polls:", myPolls);
     return (
       <ul className="list-group">
       {  myPolls.map((poll)=>{
-         return <li className="list-group-item" key={poll.id}>{poll.pollName}</li>
+
+         return <Link to="/mypolls/123" key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
         })}
       </ul>
     )
   } else {
-    return <div>Loading...</div>
+    return <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+
   }
 }
 

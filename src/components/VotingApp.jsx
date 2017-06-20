@@ -30,10 +30,10 @@ class VotingApp extends Component {
               <Route exact path="/home" component={Home}/>
               <Route exact path="/allpolls" component={AllPolls}/>
               <Route exact path="/mypolls" component={MyPolls}/>
-              <Route exact path="/newpoll" component={NewPoll}/>
               <Route path="/allpolls/123" component={MakePoll}/>
               <Route path="/mypolls/123" component={MakePoll}/>
               <Route path="/dashboard"  component={Dashboard}/>
+              <Route render={()=> <h1>Page not found.</h1>}/>
             </Switch>
           </div>
         </div>

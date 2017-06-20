@@ -17,6 +17,7 @@ class MyPolls extends Component {
     return (
       <div className="app-body-inner">
       <UserPolls />
+      <NewPoll />
       </div>
     );
   }

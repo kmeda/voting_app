@@ -26,6 +26,13 @@ export var addPolls = (polls)=>{
   }
 }
 
+export var addPublicPolls = (publicPolls) => {
+    return {
+      type: "ADD_PUBLIC_POLLS",
+      publicPolls
+    }
+}
+
 export var startAddUserPolls = ()=>{
   return (dispatch, getState)=>{
     var uid = getState().auth.uid;
@@ -46,6 +53,27 @@ export var startAddUserPolls = ()=>{
 
   };
 };
+
+export var startAddPublicPolls = ()=>{
+  return (dispatch, getState)=>{
+
+    var pollsRef = firebaseRef.child(`users/iVK7o8kaeyW1FXzgi9d40F698622`);
+
+    return pollsRef.once("value").then((snapshot)=>{
+        var users = snapshot.val() || {};
+        var parsedPolls = [];
+
+        Object.keys(users).forEach((uid)=>{
+          parsedPolls.push({
+            ...users[uid]
+          });
+        });
+        dispatch(addPublicPolls(parsedPolls));
+    });
+  };
+};
+
+
 
 export var moreOptions = (inputCountArray)=>{
   return {

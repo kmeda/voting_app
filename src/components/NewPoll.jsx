@@ -19,8 +19,8 @@ class NewPoll extends Component {
   }
 
   componentDidMount(){
-      var {dispatch} = this.props;
-      dispatch(actions.clearCapturedInputs());
+    var {dispatch} = this.props;
+    dispatch(actions.clearCapturedInputs());
   }
 
   handleChange(e){
