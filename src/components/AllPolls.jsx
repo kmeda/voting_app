@@ -14,8 +14,10 @@ class AllPolls extends Component {
   }
 
 
-componentDidUpdate(){
-  //clear polls and fetch new polls
+componentDidMount(){
+  var {dispatch} = this.props;
+  dispatch(actions.clearPublicPolls());
+  dispatch(actions.startAddPublicPolls());
 }
 
 renderPollList(){
@@ -23,13 +25,14 @@ renderPollList(){
   var publicPolls = this.props.publicPolls[0];
 
   if (publicPolls) {
-    console.log(publicPolls);
-
-    //reduce all polls into one object and feed the pols to link tag
-
+    var pollsArray = Object.values(publicPolls);
     return (
       <ul className="list-group">
-        <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Mapping in progress..{/*return <Link to="/mypolls/123" key={key}><li className="list-group-item">{polls[key].pollName}</li></Link>    */}
+        {
+          pollsArray.map((poll)=>{
+              return <Link to="/mypolls/123" key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
+            })
+          }
       </ul>
     )
     } else {

@@ -31,7 +31,6 @@ export var startAddPoll = (poll) => {
             fetchPublicPolls.once("value").then((snapshot)=>{
               publicPolls = Object.keys(snapshot.val() || {});
 
-              console.log("Promise?", userPollsKeys);
               const filtered = userPollsKeys
                 .filter(key => !publicPolls.includes(key))
                 .reduce((obj, key) => {
@@ -39,7 +38,22 @@ export var startAddPoll = (poll) => {
                   return obj;
                 }, {});
 
-              var publicPollsRef = firebaseRef.child(`users/publicPolls`).update(filtered);
+                // inject poll id into each poll
+                var thisPoll = [];
+                var obj = {};
+                Object.keys(filtered).forEach((pollId)=>{
+                  thisPoll.push({
+                    id: pollId,
+                    ...filtered[pollId]
+                  });
+                  obj[pollId] = thisPoll[0];
+                })
+
+                  var newobj = Object.assign({}, obj)
+                  console.log(newobj);
+
+
+              var publicPollsRef = firebaseRef.child(`users/publicPolls`).update(newobj);
                   publicPollsRef.then(()=>{
                     return;
                   })
@@ -78,14 +92,7 @@ export var startAddPublicPolls = ()=>{
     var pollsRef = firebaseRef.child(`users/publicPolls`);
     return pollsRef.once("value").then((snapshot)=>{
         var polls = snapshot.val() || {};
-        var parsedPolls = [];
 
-        Object.keys(polls).forEach((pollId)=>{
-          parsedPolls.push({
-            id: pollId,
-            ...polls[pollId]
-          });
-        });
         dispatch(addPublicPolls(polls));
     });
   };

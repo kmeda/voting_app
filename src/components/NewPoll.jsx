@@ -59,7 +59,7 @@ class NewPoll extends Component {
     var {dispatch, capturedInputs} = this.props;
 
     //push to firebase under userid
-    
+
     dispatch(actions.startAddPoll(capturedInputs));
 
     //clear form input - reset all refs and reset options to 2
@@ -70,6 +70,7 @@ class NewPoll extends Component {
         });
     });
     dispatch(actions.clearCapturedInputs());
+
   }
 
 

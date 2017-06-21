@@ -22,7 +22,7 @@ renderPollList(){
   var myPolls = this.props.publicPolls[0];
 
   if (myPolls) {
-    console.log(myPolls[0]);
+    //console.log(myPolls[0]);
     return (
       <ul className="list-group">
         <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Mapping in progress..
