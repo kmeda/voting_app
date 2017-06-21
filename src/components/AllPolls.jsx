@@ -1,26 +1,3 @@
-{/*import React, {Component} from "react";
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
-
-
-import Polls from './Polls.jsx';
-import MakePoll from './MakePoll.jsx';
-
-class AllPolls extends Component {
-  constructor(props){
-    super(props);
-  }
-
-  render(){
-    return (
-      <div className="app-body-inner">
-        <Polls />
-      </div>
-    );
-  }
-};
-
-export default AllPolls;
-*/}
 
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
@@ -43,26 +20,20 @@ componentDidUpdate(){
 
 renderPollList(){
 
-  var myPolls = this.props.publicPolls[0];
+  var publicPolls = this.props.publicPolls[0];
 
-  if (myPolls) {
-      return (
-        <ul className="list-group">
-        {  [myPolls].map((allPolls)=>{
-          console.log("All Polls: ",allPolls)
-            return allPolls.map((polls)=>{
-              var pollKeys= Object.keys(polls);
+  if (publicPolls) {
+    console.log(publicPolls);
 
-              return pollKeys.map((key)=>{
-                return <Link to="/mypolls/123" key={key}><li className="list-group-item">{polls[key].pollName}</li></Link>
-              })
-            })
-          })
-        }
-        </ul>
-      )
+    //reduce all polls into one object and feed the pols to link tag
+
+    return (
+      <ul className="list-group">
+        <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Mapping in progress..{/*return <Link to="/mypolls/123" key={key}><li className="list-group-item">{polls[key].pollName}</li></Link>    */}
+      </ul>
+    )
     } else {
-      return <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+      return <div><span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Mapping in progress...</div>
     }
   }
 

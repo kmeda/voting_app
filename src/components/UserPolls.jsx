@@ -19,16 +19,21 @@ componentDidUpdate(){
 
 renderPollList(){
 
-  var myPolls = this.props.userPolls[0];
+  var myPolls = this.props.publicPolls[0];
 
   if (myPolls) {
-    console.log("My Polls:", myPolls);
+    console.log(myPolls[0]);
     return (
       <ul className="list-group">
-      {  myPolls.map((poll)=>{
+        <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Mapping in progress..
+      {/*{  myPolls.map((polls)=>{
+        console.log(polls);
+        [polls].map((poll)=>{
+          console.log(poll);
+          return <Link to="/mypolls/123" key={Object.keys(poll)}><li className="list-group-item">{poll.pollName}</li></Link>
+        })
 
-         return <Link to="/mypolls/123" key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
-        })}
+        })}*/}
       </ul>
     )
   } else {
@@ -52,7 +57,7 @@ render(){
 export default Redux.connect(
   (state) => {
     return {
-      userPolls: state.polls
+      publicPolls: state.publicPolls
     }
   }
 )(UserPolls);

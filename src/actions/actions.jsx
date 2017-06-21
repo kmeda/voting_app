@@ -1,29 +1,62 @@
 import firebase, {firebaseRef, twitterProvider} from '../firebase/index.js';
 
-export var addPoll = (poll)=>{
-  return {
-    type: "ADD_POLL",
-    poll
-  }
-}
+//public polls reducer actions
 
 export var startAddPoll = (poll) => {
   return (dispatch, getState)=>{
 
     var uid = getState().auth.uid;
-    var pollRef = firebaseRef.child(`users/${uid}/polls`).push(poll);
 
-    pollRef.then(()=>{
-      return;
+    //push poll to user uid polls
+    //fetch all polls into an array
+    //fetch all public polls into an array
+    //filter polls not in publicpolls
+    //push result to publicpolls
+    var userPolls = [];
+    var publicPolls = [];
+
+    var userPollsKeys = [];
+
+    var userPollsRef = firebaseRef.child(`users/${uid}`).push(poll);
+
+    userPollsRef.then(()=>{
+        var fetchUserPolls = firebaseRef.child(`users/${uid}`);
+            fetchUserPolls.once("value").then((snapshot)=>{
+              userPolls = snapshot.val() || {};
+              userPollsKeys = Object.keys(userPolls);
+
+            });
+
+        var fetchPublicPolls = firebaseRef.child(`users/publicPolls`);
+            fetchPublicPolls.once("value").then((snapshot)=>{
+              publicPolls = Object.keys(snapshot.val() || {});
+
+              console.log("Promise?", userPollsKeys);
+              const filtered = userPollsKeys
+                .filter(key => !publicPolls.includes(key))
+                .reduce((obj, key) => {
+                  obj[key] = userPolls[key];
+                  return obj;
+                }, {});
+
+              var publicPollsRef = firebaseRef.child(`users/publicPolls`).update(filtered);
+                  publicPollsRef.then(()=>{
+                    return;
+                  })
+
+              var allUserPolls = firebaseRef.child(`users/publicPolls`);
+                  allUserPolls.once("value").then((snapshot)=>{
+                    var polls = snapshot.val() || {};
+                    dispatch(clearPublicPolls());
+                    dispatch(startAddPublicPolls());
+                  })
+
+            });
+
+        //filter polls her
+
     });
   };
-}
-
-export var addPolls = (polls)=>{
-  return {
-    type: "ADD_POLLS",
-    polls
-  }
 }
 
 export var addPublicPolls = (publicPolls) => {
@@ -33,11 +66,16 @@ export var addPublicPolls = (publicPolls) => {
     }
 }
 
-export var startAddUserPolls = ()=>{
-  return (dispatch, getState)=>{
-    var uid = getState().auth.uid;
-    var pollsRef = firebaseRef.child(`users/${uid}/polls`);
+export var clearPublicPolls = () => {
+  return {
+    type: "CLEAR_PUBLIC_POLLS"
+  }
+}
 
+export var startAddPublicPolls = ()=>{
+  return (dispatch, getState)=>{
+
+    var pollsRef = firebaseRef.child(`users/publicPolls`);
     return pollsRef.once("value").then((snapshot)=>{
         var polls = snapshot.val() || {};
         var parsedPolls = [];
@@ -48,33 +86,23 @@ export var startAddUserPolls = ()=>{
             ...polls[pollId]
           });
         });
-        dispatch(addPolls(parsedPolls));
+        dispatch(addPublicPolls(polls));
     });
-
   };
 };
 
-export var startAddPublicPolls = ()=>{
+export var startAddUserPolls = ()=>{
   return (dispatch, getState)=>{
+    var uid = getState().auth.uid;
+    return;
 
-    var pollsRef = firebaseRef.child(`users`);
-
-    return pollsRef.once("value").then((snapshot)=>{
-        var users = snapshot.val() || {};
-        var parsedPolls = [];
-
-        Object.keys(users).forEach((uid)=>{
-          parsedPolls.push({
-            ...users[uid]
-          });
-        });
-        dispatch(addPublicPolls(parsedPolls));
-    });
   };
 };
 
 
 
+
+//poll input reducer actions
 export var moreOptions = (inputCountArray)=>{
   return {
     type: "MORE_OPTIONS",
@@ -89,15 +117,20 @@ export var captureInputs = (inputs) => {
   }
 }
 
-export var validateInput = () => {
-    return {
-      type: "ON_VALID_INPUT"
-    }
-}
 
 export var clearCapturedInputs = ()=>{
   return {
     type: "CLEAR_CAPTURED_INPUTS"
+  }
+}
+
+// Auth reducer actions
+export var login = (uid, name, photoURL) =>{
+  return {
+    type: "LOGIN",
+    uid,
+    name,
+    photoURL
   }
 }
 
@@ -111,6 +144,12 @@ export var startLogin = () => {
   };
 }
 
+export var logout = ()=>{
+  return {
+    type: "LOGOUT"
+  }
+};
+
 export var startLogout = () => {
   return (dispatch, getState)=>{
     return firebase.auth().signOut().then(()=> {
@@ -118,18 +157,3 @@ export var startLogout = () => {
 });
   };
 }
-
-export var login = (uid, name, photoURL) =>{
-  return {
-    type: "LOGIN",
-    uid,
-    name,
-    photoURL
-  }
-}
-
-export var logout = ()=>{
-  return {
-    type: "LOGOUT"
-  }
-};

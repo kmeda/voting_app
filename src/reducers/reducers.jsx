@@ -1,23 +1,4 @@
 
-export var pollsReducer = (state=[], action)=>{
-  switch (action.type) {
-    case "ADD_POLL":
-      return [
-        ...state,
-        action.poll
-      ];
-    case "ADD_POLLS":
-    return [
-      ...state,
-      action.polls
-    ];
-    case "LOGOUT":
-    return [];
-    default:
-    return state;
-  }
-}
-
 export var publicPollsReducer = (state=[], action) => {
   switch (action.type) {
     case "ADD_PUBLIC_POLLS":
@@ -25,16 +6,20 @@ export var publicPollsReducer = (state=[], action) => {
         ...state,
         action.publicPolls
       ];
+    case "CLEAR_PUBLIC_POLLS":
+      return [];
     default:
       return state;
   }
 }
 
+
 var pollInput = {
   options: ["input0", "input1"],
   capturedInputs: {
     pollName: '',
-    pollOptions: []
+    pollOptions: [],
+    pollResults: []
   }
 }
 

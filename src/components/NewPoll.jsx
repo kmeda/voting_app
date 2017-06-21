@@ -37,8 +37,18 @@ class NewPoll extends Component {
                     return option !== '';
                   });
 
+    var results = [];
+    options.map((option)=>{
+      var result = {};
+      result[option] = 0;
+      results.push(result);
+    });
+
+
+
     var poll = { pollName: this.refs.pollName.value,
-                 pollOptions: options }
+                 pollOptions: options,
+                 pollResults: results}
 
     dispatch(actions.captureInputs(poll));
 
@@ -49,6 +59,7 @@ class NewPoll extends Component {
     var {dispatch, capturedInputs} = this.props;
 
     //push to firebase under userid
+    
     dispatch(actions.startAddPoll(capturedInputs));
 
     //clear form input - reset all refs and reset options to 2
