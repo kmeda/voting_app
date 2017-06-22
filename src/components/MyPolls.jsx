@@ -14,10 +14,11 @@ class MyPolls extends Component {
 
 
   render(){
+    var {match} = this.props;
+
     return (
       <div className="app-body-inner">
-      <UserPolls />
-      <NewPoll />
+      <UserPolls match={match}/>
       </div>
     );
   }

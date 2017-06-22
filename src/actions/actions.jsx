@@ -50,7 +50,6 @@ export var startAddPoll = (poll) => {
                 })
 
                   var newobj = Object.assign({}, obj)
-                  console.log(newobj);
 
 
               var publicPollsRef = firebaseRef.child(`users/publicPolls`).update(newobj);
@@ -64,11 +63,7 @@ export var startAddPoll = (poll) => {
                     dispatch(clearPublicPolls());
                     dispatch(startAddPublicPolls());
                   })
-
             });
-
-        //filter polls her
-
     });
   };
 }
@@ -98,11 +93,29 @@ export var startAddPublicPolls = ()=>{
   };
 };
 
+export var addUserPollsKeys = (userPollsKeys)=>{
+  return {
+    type: "GET_USER_POLLS_KEYS",
+    userPollsKeys
+  }
+}
+
+export var clearUserPollKeys = () => {
+  return {
+    type: "CLEAR_USER_POLL_KEYS"
+  }
+}
+
 export var startAddUserPolls = ()=>{
   return (dispatch, getState)=>{
     var uid = getState().auth.uid;
-    return;
-
+    // grab users polls object keys
+    var pollsRef = firebaseRef.child(`users/${uid}`);
+    pollsRef.once("value").then((snapshot)=>{
+      var polls = snapshot.val() || {};
+      var pollKeys = Object.keys(polls);
+      dispatch(addUserPollsKeys(pollKeys));
+    });
   };
 };
 

@@ -1,4 +1,3 @@
-
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
@@ -20,9 +19,15 @@ componentDidMount(){
   dispatch(actions.startAddPublicPolls());
 }
 
-renderPollList(){
+componentDidUpdate(){
 
+}
+
+renderPollList(){
+  var {match} = this.props;
   var publicPolls = this.props.publicPolls[0];
+
+  console.log(match);
 
   if (publicPolls) {
     var pollsArray = Object.values(publicPolls);
@@ -30,13 +35,13 @@ renderPollList(){
       <ul className="list-group">
         {
           pollsArray.map((poll)=>{
-              return <Link to="/mypolls/123" key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
+              return <Link to={`${match.url}/${poll.id}`} key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
             })
           }
       </ul>
     )
     } else {
-      return <div><span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Mapping in progress...</div>
+      return <div><span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</div>
     }
   }
 

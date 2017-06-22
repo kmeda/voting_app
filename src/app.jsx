@@ -15,9 +15,11 @@ import '../styles/main.scss';
 
 store.dispatch(actions.startAddPublicPolls());
 
+
 firebase.auth().onAuthStateChanged((user)=>{
   if (user) {
     store.dispatch(actions.login(user.uid, user.displayName, user.photoURL));
+    store.dispatch(actions.startAddUserPolls());
 
   } else {
     store.dispatch(actions.logout());

@@ -13,6 +13,16 @@ export var publicPollsReducer = (state=[], action) => {
   }
 }
 
+export var userPollsReducer = (state=[], action) => {
+  switch (action.type) {
+    case "GET_USER_POLLS_KEYS":
+      return action.userPollsKeys
+    case "CLEAR_USER_POLL_KEYS":
+      return [];
+    default:
+      return state;
+  }
+}
 
 var pollInput = {
   options: ["input0", "input1"],

@@ -12,33 +12,47 @@ class UserPolls extends Component {
     super(props);
   }
 
+componentDidMount(){
+  var {dispatch} = this.props;
+  dispatch(actions.clearUserPollKeys());
+  dispatch(actions.startAddUserPolls());
+}
 
 componentDidUpdate(){
-  //clear polls and fetch new polls
+
 }
 
 renderPollList(){
 
-  var myPolls = this.props.publicPolls[0];
+  var publicPolls = this.props.publicPolls[0];
+  var {userPollsKeys} = this.props;
+  var {match} = this.props;
 
-  if (myPolls) {
-    //console.log(myPolls[0]);
+
+  //Clear current publicPolls
+  //apply filter
+  //render the list
+
+  if (publicPolls) {
+    const filtered = Object.keys(publicPolls)
+      .filter(key => userPollsKeys.includes(key))
+      .reduce((obj, key) => {
+        obj[key] = publicPolls[key];
+        return obj;
+      }, {});
+    var filteredUserPolls = Object.values(filtered);
+
     return (
       <ul className="list-group">
-        <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Mapping in progress..
-      {/*{  myPolls.map((polls)=>{
-        console.log(polls);
-        [polls].map((poll)=>{
-          console.log(poll);
-          return <Link to="/mypolls/123" key={Object.keys(poll)}><li className="list-group-item">{poll.pollName}</li></Link>
+      {
+        filteredUserPolls.map((poll)=>{
+          return <Link to={`${match.url}/${poll.id}`} key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
         })
-
-        })}*/}
+        }
       </ul>
     )
   } else {
-    return <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-
+    return <div><span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</div>
   }
 }
 
@@ -57,7 +71,8 @@ render(){
 export default Redux.connect(
   (state) => {
     return {
-      publicPolls: state.publicPolls
+      publicPolls: state.publicPolls,
+      userPollsKeys: state.userPolls
     }
   }
 )(UserPolls);

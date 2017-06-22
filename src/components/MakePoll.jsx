@@ -6,6 +6,8 @@ class MakePoll extends Component {
   }
 
   render(){
+    var {match} = this.props;
+    console.log(match);
     return (
       <div className="chart-container">
         <h3>Submit your vote.</h3>
