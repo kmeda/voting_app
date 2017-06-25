@@ -66,3 +66,47 @@ export var authReducer = (state={}, action)=>{
       return state;
   }
 }
+
+var pollResults = {
+  pollResults: [],
+  usersVoted: []
+}
+export var pollResultsReducer = (state=pollResults, action)=>{
+  switch (action.type) {
+    case "CAPTURE_POLL_RESULT":
+      return {
+        ...state,
+        pollResults: action.capturedResult
+      }
+    case "VOTED_BY_USER":
+      return {
+        ...state,
+        usersVoted: action.addUserVoted
+      }
+    default:
+      return state;
+  }
+}
+
+export var selectedOptionReducer = (state=[], action)=>{
+  switch (action.type) {
+    case "SELECTED_OPTION":
+      return [
+        action.selectedOption
+      ];
+    case "CLEAR_SELECTED_OPTION":
+      return [];
+    default:
+      return state;
+
+  }
+}
+
+export var userIPReducer = (state=[], action) => {
+  switch (action.type) {
+    case "GET_USER_IP":
+      return action.userIP;
+    default:
+      return state;
+  }
+}

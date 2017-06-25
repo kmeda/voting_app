@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 import * as Redux from 'react-redux';
-import firebase, {firebaseRef} from '../firebase/index.js';
 const actions = require('../actions/actions.jsx');
 
 import MakePoll from './MakePoll.jsx';
@@ -27,15 +26,19 @@ renderPollList(){
   var {match} = this.props;
   var publicPolls = this.props.publicPolls[0];
 
-  console.log(match);
 
   if (publicPolls) {
+
     var pollsArray = Object.values(publicPolls);
+    if (pollsArray && pollsArray.length === 0) {
+      return <div>No polls to show.</div>
+    }
+
     return (
       <ul className="list-group">
         {
           pollsArray.map((poll)=>{
-              return <Link to={`${match.url}/${poll.id}`} key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
+              return <Link to={`${match.url}/${poll.id}/${poll.pollName}`} key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
             })
           }
       </ul>

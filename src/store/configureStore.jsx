@@ -1,13 +1,22 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import {publicPollsReducer, userPollsReducer, authReducer, pollInputReducer} from '../reducers/reducers.jsx';
+import {  publicPollsReducer,
+          userPollsReducer,
+          authReducer,
+          pollInputReducer,
+          pollResultsReducer,
+          userIPReducer,
+          selectedOptionReducer } from '../reducers/reducers.jsx';
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
+    pollInput: pollInputReducer,
     publicPolls: publicPollsReducer,
     userPolls: userPollsReducer,
-    pollInput: pollInputReducer,
+    selectedOption: selectedOptionReducer,
+    pollResults: pollResultsReducer,
+    userIP: userIPReducer,
     auth: authReducer
   });
 

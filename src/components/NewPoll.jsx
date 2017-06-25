@@ -37,8 +37,11 @@ class NewPoll extends Component {
                     return option !== '';
                   });
 
+    var filteredOptions = [...new Set(options)];
+
+
     var results = [];
-    options.map((option)=>{
+    filteredOptions.map((option)=>{
       var result = {};
       result[option] = 0;
       results.push(result);
@@ -47,8 +50,9 @@ class NewPoll extends Component {
 
 
     var poll = { pollName: this.refs.pollName.value,
-                 pollOptions: options,
-                 pollResults: results}
+                 pollOptions: filteredOptions,
+                 pollResults: results
+                 }
 
     dispatch(actions.captureInputs(poll));
 
@@ -92,7 +96,7 @@ class NewPoll extends Component {
         	</div>
 
         	<div className="form-group">
-        		<label className="control-label requiredField">Enter atleast two or more Options</label>
+        		<label className="control-label requiredField">Enter two or more unique values</label>
                 {this.props.options.map((input)=>{
                   return <input className="form-control" key={input} type="text" ref={input}
                     onChange={this.handleChange.bind(this)}/>

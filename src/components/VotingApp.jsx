@@ -31,8 +31,8 @@ class VotingApp extends Component {
               <Route exact path="/allpolls" component={AllPolls}/>
               <Route exact path="/mypolls" component={MyPolls}/>
               <Route exact path="/newpoll" component={NewPoll}/>
-              <Route path="/allpolls/:id" component={MakePoll}/>
-              <Route path="/mypolls/:id" component={MakePoll}/>
+              <Route path="/allpolls/:id/:pollName" component={MakePoll}/>
+              <Route path="/mypolls/:id/:pollName" component={MakePoll}/>
               <Route path="/dashboard"  component={Dashboard}/>
               <Route render={()=> <h1>Page not found.</h1>}/>
             </Switch>

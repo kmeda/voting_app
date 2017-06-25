@@ -7,6 +7,11 @@ export var startAddPoll = (poll) => {
 
     var uid = getState().auth.uid;
 
+    //there is no need to filter polls here
+    //this action should simply put polls in both nodes
+    //rewrite code here
+    //on delete apply this filter
+
     //push poll to user uid polls
     //fetch all polls into an array
     //fetch all public polls into an array
@@ -141,6 +146,43 @@ export var captureInputs = (inputs) => {
 export var clearCapturedInputs = ()=>{
   return {
     type: "CLEAR_CAPTURED_INPUTS"
+  }
+}
+
+//selectedOptionReducer actions
+export var selectedOption = (selectedOption) =>{
+  return {
+    type: "SELECTED_OPTION",
+    selectedOption
+  }
+}
+
+export var clearSelectedOption = () => {
+  return {
+    type: "CLEAR_SELECTED_OPTION"
+  }
+}
+
+//pollResultsReducer actions
+export var capturedResult = (pollResults)=>{
+  return {
+    type: "CAPTURE_POLL_RESULT",
+    pollResults
+  }
+}
+
+export var addUserVoted = (usersVoted)=>{
+  return {
+    type: "VOTED_BY_USER",
+    usersVoted
+  }
+}
+
+// userIPReducer actions
+export var userIP = (userIP)=>{
+  return {
+    type: "GET_USER_IP",
+    userIP
   }
 }
 

@@ -34,6 +34,7 @@ renderPollList(){
   //render the list
 
   if (publicPolls) {
+
     const filtered = Object.keys(publicPolls)
       .filter(key => userPollsKeys.includes(key))
       .reduce((obj, key) => {
@@ -46,7 +47,7 @@ renderPollList(){
       <ul className="list-group">
       {
         filteredUserPolls.map((poll)=>{
-          return <Link to={`${match.url}/${poll.id}`} key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
+          return <Link to={`${match.url}/${poll.id}/${poll.pollName}`} key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
         })
         }
       </ul>
