@@ -11,8 +11,8 @@ class MakePoll extends Component {
     super(props);
   }
 
-  componentDidMount(){
-    var {dispatch, match} = this.props;
+  componentWillMount(){
+    var {dispatch, match, poll} = this.props;
 
     dispatch(actions.getPoll(match.params.id));
     dispatch(actions.getUserIP());
@@ -105,31 +105,30 @@ class MakePoll extends Component {
   handleCustomOption(){
     //get state for custom option and render input tag
     var customOption = this.props.selectedOption;
+    var {uid} = this.props;
 
     if (customOption === "I'd like a custom option") {
-      return (<div>
+        if (uid) {
+          return (
+            <div>
               <br/>
               <input type="text" ref="customOption" placeholder="Type in and submit to vote.."/>
-              </div>
-            )
+            </div>
+        )
+      } else {
+        alert("You must be logged in to vote custom option.")
+      }
+
     }
   }
 
   render(){
-    var {match} = this.props;
+    var {match, poll, uid} = this.props;
     var publicPolls = this.props.publicPolls[0];
 
-    if (publicPolls) {
-      var polls = Object.values(publicPolls);
-
-      var votePoll = polls.filter((poll)=>{
-        return poll ? poll.id === match.params.id : null;
-      })
-      var poll = votePoll[0];
-      //console.log("Poll data: ",votePoll[0]);
-    }
-
     if (poll) {
+      var isEnabled = uid !== null;
+      var pollOptions = poll.pollOptions;
       return (
         <div>
         <h3 className="polling-header">Submit your vote</h3>
@@ -142,10 +141,10 @@ class MakePoll extends Component {
                   <select form="select" ref="selected" onChange={this.handleChange.bind(this)} required>
                     <option defaultValue >Select</option>
                     {
-                      poll.pollOptions.map((option)=>{
+                      pollOptions.map((option)=>{
                         return (
                           <option
-                            key={poll.pollOptions.indexOf(option)}
+                            key={pollOptions.indexOf(option)}
                             value={option}
                             >{option}</option>
                         )

@@ -18,9 +18,6 @@ componentDidMount(){
   dispatch(actions.startAddUserPolls());
 }
 
-componentDidUpdate(){
-
-}
 
 renderPollList(){
 

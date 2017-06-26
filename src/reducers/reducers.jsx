@@ -67,12 +67,12 @@ export var authReducer = (state={}, action)=>{
   }
 }
 
-export var pollReducer = (state=[], action)=>{
+export var pollReducer = (state=null, action)=>{
   switch (action.type) {
     case "ADD_POLL":
       return action.poll;
     case "CLEAR_POLL":
-      return [];
+      return null;
     default:
       return state;
   }

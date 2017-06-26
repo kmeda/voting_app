@@ -23,6 +23,11 @@ class NewPoll extends Component {
     dispatch(actions.clearCapturedInputs());
   }
 
+  componentWillUnmount(){
+    var {dispatch} = this.props;
+    dispatch(actions.clearCapturedInputs());
+  }
+
   handleChange(e){
     e.preventDefault();
     var {dispatch} = this.props;
