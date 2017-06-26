@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import * as Redux from 'react-redux';
 
+import Chart from './Chart.jsx';
 
 const actions = require('../actions/actions.jsx');
 
@@ -13,48 +14,87 @@ class MakePoll extends Component {
   componentDidMount(){
     var {dispatch, match} = this.props;
 
-    //fetch poll from firebase and update state
     dispatch(actions.getPoll(match.params.id));
-
-    //get User IP and set state
     dispatch(actions.getUserIP());
   }
 
   componentWillUnmount(){
     var {dispatch} = this.props;
-    //trigger action to clear selectedOption
+
     dispatch(actions.clearSelectedOption());
-    //trigger action to clear poll
+    dispatch(actions.clearPoll());
   }
 
   handleSubmit(e){
     e.preventDefault();
-    var selectedOption = this.props.selectedOption[0];
+    var {uid, userIP, selectedOption, poll, dispatch, match} = this.props;
 
-    console.log(selectedOption);
+    var votedPoll = [];
 
-    if (selectedOption === "I'd like a custom option") {
-        console.log(this.refs.customOption.value);
+    if (poll.usersVoted.includes(uid) || poll.ipVoted.includes(userIP)) {
+      alert("User or IP already voted.")
+      return;
+    }
+    else if (selectedOption === "I'd like a custom option") {
+      if (this.refs.customOption.value === '') {
+        alert("Error: input field empty.")
+        return
+      }
+      var pollOptions = [ ...poll.pollOptions, this.refs.customOption.value];
+      // update poll results
+      var key = this.refs.customOption.value;
+      var obj = {};
+      obj[key] = 1;
+      var pollResults =   [...poll.pollResults, obj];
+      var usersVoted = [...poll.usersVoted, uid];
+      var ipVoted = [...poll.ipVoted, userIP];
+
+      votedPoll.push({
+        ...poll,
+        pollOptions,
+        pollResults,
+        usersVoted,
+        ipVoted
+      })
+      console.log(votedPoll);
+
+    } else if (selectedOption === "Select" || selectedOption.length === 0) {
+      alert("Error, choose an option.");
+      return;
+
+    } else {
+      var pollOptions = [ ...poll.pollOptions];
+      // update poll results
+      var key = this.refs.selected.value;
+      var pollResults = [...poll.pollResults];
+      var updatedPollResults = [];
+          pollResults.map((option)=>{
+            if (Object.keys(option)[0] === key) {
+              option[key] = option[key]+1;
+            }
+            updatedPollResults.push(option);
+          });
+
+      var usersVoted = [...poll.usersVoted, uid];
+      var ipVoted = [...poll.ipVoted, userIP];
+
+      votedPoll.push({
+        ...poll,
+        pollOptions,
+        pollResults: updatedPollResults,
+        usersVoted,
+        ipVoted
+      })
+      console.log(votedPoll[0]);
     }
 
 
 
-    //if uid is present and uid matches in the poll or if no uid and ip matches alert message
-    //else if state is custom option update poll options and results
-    //else update results with selectedOption
-    //update the poll with results, uid, ip
+    dispatch(actions.updatePollToFirebase(votedPoll[0], match.params.id));
+    dispatch(actions.clearSelectedOption());
+    dispatch(actions.clearPoll());
+    dispatch(actions.getPoll(match.params.id));
 
-    //structure the poll with user input
-    //Based on conditions - block or update poll to firebase
-    //clear the poll state
-    //clear the selectedOption state
-
-
-    var votedPoll = {
-      pollResults: [],
-      usersVoted: [],
-      ipVoted:[]
-    }
   }
 
   handleChange(){
@@ -64,7 +104,7 @@ class MakePoll extends Component {
 
   handleCustomOption(){
     //get state for custom option and render input tag
-    var customOption = this.props.selectedOption[0];
+    var customOption = this.props.selectedOption;
 
     if (customOption === "I'd like a custom option") {
       return (<div>
@@ -78,8 +118,7 @@ class MakePoll extends Component {
   render(){
     var {match} = this.props;
     var publicPolls = this.props.publicPolls[0];
-    var selectedOption = this.props.selectedOption[0];
-    //console.log(match.params.id);
+
     if (publicPolls) {
       var polls = Object.values(publicPolls);
 
@@ -93,7 +132,7 @@ class MakePoll extends Component {
     if (poll) {
       return (
         <div>
-        <h3>Submit your vote</h3>
+        <h3 className="polling-header">Submit your vote</h3>
         <div className="poll-container">
 
           <div className="poll-vote">
@@ -120,7 +159,7 @@ class MakePoll extends Component {
               </form>
 
             </div>
-            <div className="chart-container">Render Chart here..</div>
+            <Chart />
           </div>
       </div>
       </div>
@@ -138,7 +177,8 @@ export default Redux.connect(
       publicPolls: state.publicPolls,
       selectedOption: state.selectedOption,
       poll: state.poll,
-      uid: state.auth.uid
+      uid: state.auth.uid,
+      userIP: state.userIP
     }
   }
 )(MakePoll);

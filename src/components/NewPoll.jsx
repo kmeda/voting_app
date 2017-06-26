@@ -51,7 +51,9 @@ class NewPoll extends Component {
 
     var poll = { pollName: this.refs.pollName.value,
                  pollOptions: filteredOptions,
-                 pollResults: results
+                 pollResults: results,
+                 usersVoted: ["test"],
+                 ipVoted: ["test"]
                  }
 
     dispatch(actions.captureInputs(poll));

@@ -1,5 +1,5 @@
 import firebase, {firebaseRef, twitterProvider} from '../firebase/index.js';
-var ip = require('ip');
+import axios from 'axios';
 
 //public polls reducer actions
 
@@ -182,16 +182,13 @@ export var addPoll = (poll)=>{
     }
 }
 
-export var capturedResult = (pollVoted)=>{
-  return {
-    type: "VOTED_POLL",
-    votedPoll
-  }
-}
-export var updatePollToFirebase = ()=>{
+export var updatePollToFirebase = (poll, pollID)=>{
   //Async action to update poll to firebase using pollID
-
+  return (dispatch, getState)=>{
+    var pollsRef = firebaseRef.child(`users/publicPolls/${pollID}`).update(poll);
+    }
 }
+
 export var clearPoll = ()=>{
   return {
     type: "CLEAR_POLL"
@@ -207,8 +204,9 @@ export var deletePoll = (pollID)=>{
 export var getUserIP = ()=>{
   return (dispatch, getState) =>{
 
-    var myIP = ip.address();
-    dispatch(setUserIP(myIP));
+    axios.get('https://api.ipify.org?format=json').then((res)=>{
+      dispatch(setUserIP(res.data.ip));
+    });
   }
 }
 

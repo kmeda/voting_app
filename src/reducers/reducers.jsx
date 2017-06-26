@@ -70,24 +70,18 @@ export var authReducer = (state={}, action)=>{
 export var pollReducer = (state=[], action)=>{
   switch (action.type) {
     case "ADD_POLL":
-      return [action.poll];
-    case "VOTED_POLL":
-      return [action.votedPoll]
+      return action.poll;
     case "CLEAR_POLL":
       return [];
-    case "DELETE_POLL":
-      return action.pollID
     default:
       return state;
   }
 }
 
-export var selectedOptionReducer = (state=["Select"], action)=>{
+export var selectedOptionReducer = (state=[], action)=>{
   switch (action.type) {
     case "SELECTED_OPTION":
-      return [
-        action.selectedOption
-      ];
+      return action.selectedOption;
     case "CLEAR_SELECTED_OPTION":
       return [];
     default:
