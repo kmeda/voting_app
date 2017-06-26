@@ -1,26 +1,60 @@
 import React, {Component} from "react";
 import * as Redux from 'react-redux';
+
+
 const actions = require('../actions/actions.jsx');
+
 
 class MakePoll extends Component {
   constructor(props){
     super(props);
   }
 
+  componentDidMount(){
+    var {dispatch, match} = this.props;
+
+    //fetch poll from firebase and update state
+    dispatch(actions.getPoll(match.params.id));
+
+    //get User IP and set state
+    dispatch(actions.getUserIP());
+  }
+
   componentWillUnmount(){
-    //trigger action to clear selectedOption
     var {dispatch} = this.props;
+    //trigger action to clear selectedOption
     dispatch(actions.clearSelectedOption());
+    //trigger action to clear poll
   }
 
   handleSubmit(e){
     e.preventDefault();
-    var {uid, pollResults} = this.props;
-    //var selectedOption = 
-    console.log(this.refs.customOption.value);
+    var selectedOption = this.props.selectedOption[0];
 
-    //if user uid exists alert message
-    //else if custom option
+    console.log(selectedOption);
+
+    if (selectedOption === "I'd like a custom option") {
+        console.log(this.refs.customOption.value);
+    }
+
+
+
+    //if uid is present and uid matches in the poll or if no uid and ip matches alert message
+    //else if state is custom option update poll options and results
+    //else update results with selectedOption
+    //update the poll with results, uid, ip
+
+    //structure the poll with user input
+    //Based on conditions - block or update poll to firebase
+    //clear the poll state
+    //clear the selectedOption state
+
+
+    var votedPoll = {
+      pollResults: [],
+      usersVoted: [],
+      ipVoted:[]
+    }
   }
 
   handleChange(){
@@ -103,7 +137,7 @@ export default Redux.connect(
     return {
       publicPolls: state.publicPolls,
       selectedOption: state.selectedOption,
-      pollResults: state.pollResults,
+      poll: state.poll,
       uid: state.auth.uid
     }
   }

@@ -1,4 +1,5 @@
 import firebase, {firebaseRef, twitterProvider} from '../firebase/index.js';
+var ip = require('ip');
 
 //public polls reducer actions
 
@@ -125,8 +126,6 @@ export var startAddUserPolls = ()=>{
 };
 
 
-
-
 //poll input reducer actions
 export var moreOptions = (inputCountArray)=>{
   return {
@@ -163,26 +162,60 @@ export var clearSelectedOption = () => {
   }
 }
 
-//pollResultsReducer actions
-export var capturedResult = (pollResults)=>{
-  return {
-    type: "CAPTURE_POLL_RESULT",
-    pollResults
-  }
+//pollReducer actions
+export var getPoll = (pollID)=>{
+  //async action to get poll with pollID
+  return (dispatch, getState)=>{
+    var pollsRef = firebaseRef.child(`users/publicPolls/${pollID}`);
+    return pollsRef.once("value").then((snapshot)=>{
+        var poll = snapshot.val() || {};
+
+        dispatch(addPoll(poll));
+    });
+  };
 }
 
-export var addUserVoted = (usersVoted)=>{
+export var addPoll = (poll)=>{
+    return {
+      type: "ADD_POLL",
+      poll
+    }
+}
+
+export var capturedResult = (pollVoted)=>{
   return {
-    type: "VOTED_BY_USER",
-    usersVoted
+    type: "VOTED_POLL",
+    votedPoll
   }
 }
+export var updatePollToFirebase = ()=>{
+  //Async action to update poll to firebase using pollID
+
+}
+export var clearPoll = ()=>{
+  return {
+    type: "CLEAR_POLL"
+  }
+}
+export var deletePoll = (pollID)=>{
+  //async action to delete poll from firebase using pollID
+}
+
 
 // userIPReducer actions
-export var userIP = (userIP)=>{
+
+export var getUserIP = ()=>{
+  return (dispatch, getState) =>{
+
+    var myIP = ip.address();
+    dispatch(setUserIP(myIP));
+  }
+}
+
+export var setUserIP = (ip)=>{
   return {
-    type: "GET_USER_IP",
-    userIP
+    type: "SET_USER_IP",
+    ip
   }
 }
 

@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom';
 import firebase, {firebaseRef, twitterProvider} from './firebase/index.js';
 
+
 const actions = require('./actions/actions.jsx');
 var store = require("./store/configureStore.jsx").configure();
 import VotingApp from './components/VotingApp.jsx';
@@ -25,6 +26,7 @@ firebase.auth().onAuthStateChanged((user)=>{
     store.dispatch(actions.logout());
   }
 });
+
 
 
 ReactDOM.render(

@@ -5,7 +5,7 @@ import {  publicPollsReducer,
           userPollsReducer,
           authReducer,
           pollInputReducer,
-          pollResultsReducer,
+          pollReducer,
           userIPReducer,
           selectedOptionReducer } from '../reducers/reducers.jsx';
 
@@ -15,7 +15,7 @@ export var configure = (initialState = {}) => {
     publicPolls: publicPollsReducer,
     userPolls: userPollsReducer,
     selectedOption: selectedOptionReducer,
-    pollResults: pollResultsReducer,
+    poll: pollReducer,
     userIP: userIPReducer,
     auth: authReducer
   });
