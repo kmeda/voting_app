@@ -88,8 +88,6 @@ class MakePoll extends Component {
       console.log(votedPoll[0]);
     }
 
-
-
     dispatch(actions.updatePollToFirebase(votedPoll[0], match.params.id));
     dispatch(actions.clearSelectedOption());
     dispatch(actions.clearPoll());
@@ -103,7 +101,6 @@ class MakePoll extends Component {
   }
 
   handleCustomOption(){
-    //get state for custom option and render input tag
     var customOption = this.props.selectedOption;
     var {uid} = this.props;
 
@@ -127,7 +124,6 @@ class MakePoll extends Component {
     var publicPolls = this.props.publicPolls[0];
 
     if (poll) {
-      var isEnabled = uid !== null;
       var pollOptions = poll.pollOptions;
       return (
         <div>
