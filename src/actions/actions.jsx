@@ -175,7 +175,22 @@ export var addPoll = (poll)=>{
 export var updatePollToFirebase = (poll, pollID)=>{
   //Async action to update poll to firebase using pollID
   return (dispatch, getState)=>{
-    var pollsRef = firebaseRef.child(`users/publicPolls/${pollID}`).update(poll);
+
+    var pollExists = firebaseRef.child(`users/publicPolls/${pollID}`);
+    var exists = '';
+    pollExists.once("value").then((snapshot)=>{
+      exists = snapshot.val() || null;
+    });
+
+    if (exists) {
+      var pollsRef = firebaseRef.child(`users/publicPolls/${pollID}`).update(poll);
+      pollsRef.then(()=>{
+        return;
+      })
+    } else {
+      alert("Poll not found. Check public polls.")
+      dispatch(clearPoll());
+    }
     }
 }
 
@@ -186,6 +201,17 @@ export var clearPoll = ()=>{
 }
 export var deletePoll = (pollID)=>{
   //async action to delete poll from firebase using pollID
+  return (dispatch, getState)=>{
+    var uid = getState().auth.uid;
+    var deletePublicPoll = firebaseRef.child(`users/publicPolls/${pollID}`).remove();
+    var deleteUserPoll = firebaseRef.child(`users/${uid}/${pollID}`).remove();
+
+      deleteUserPoll.then(()=>{
+        deletePublicPoll.then(()=>{
+          return;
+        })
+      });
+    }
 }
 
 

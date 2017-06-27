@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import * as Redux from 'react-redux';
-
+import { BrowserRouter as Router, Route, Switch, NavLink, withRouter } from 'react-router-dom';
 import Chart from './Chart.jsx';
 
 const actions = require('../actions/actions.jsx');
@@ -28,7 +28,7 @@ class MakePoll extends Component {
   handleSubmit(e){
     e.preventDefault();
     var {uid, userIP, selectedOption, poll, dispatch, match} = this.props;
-    dispatch(actions.getPoll(match.params.id));
+
 
     var votedPoll = [];
 
@@ -147,6 +147,7 @@ class MakePoll extends Component {
                   <select form="select" ref="selected" onChange={this.handleChange.bind(this)} required>
                     <option defaultValue >Select</option>
                     {
+                      
                       pollOptions.map((option)=>{
                         return (
                           <option

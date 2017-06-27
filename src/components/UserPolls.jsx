@@ -19,7 +19,12 @@ componentDidMount(){
 }
 
 handleClick(id){
-    alert(`Delete me ${id}`);
+    var {dispatch} = this.props;
+    dispatch(actions.deletePoll(id));
+    dispatch(actions.clearUserPollKeys());
+    dispatch(actions.startAddUserPolls());
+
+
 }
 
 renderPollList(){
