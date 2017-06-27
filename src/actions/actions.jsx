@@ -175,12 +175,15 @@ export var addPoll = (poll)=>{
 export var updatePollToFirebase = (poll, pollID)=>{
   //Async action to update poll to firebase using pollID
   return (dispatch, getState)=>{
-
+    console.log(poll);
+    console.log(pollID);
     var pollExists = firebaseRef.child(`users/publicPolls/${pollID}`);
-    var exists = '';
+    var exists = [];
     pollExists.once("value").then((snapshot)=>{
       exists = snapshot.val() || null;
+      console.log(exists);
     });
+
 
     if (exists) {
       var pollsRef = firebaseRef.child(`users/publicPolls/${pollID}`).update(poll);
