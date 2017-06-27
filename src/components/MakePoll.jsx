@@ -75,7 +75,12 @@ class MakePoll extends Component {
             updatedPollResults.push(option);
           });
 
-      var usersVoted = [...poll.usersVoted, uid];
+      if (uid) {
+        var usersVoted = [...poll.usersVoted, uid];
+      } else {
+        var usersVoted = [...poll.usersVoted];
+      }
+
       var ipVoted = [...poll.ipVoted, userIP];
 
       votedPoll.push({
@@ -113,7 +118,7 @@ class MakePoll extends Component {
             </div>
         )
       } else {
-        alert("You must be logged in to vote custom option.")
+        alert("You must be logged in to vote a custom option.")
       }
 
     }

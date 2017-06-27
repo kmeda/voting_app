@@ -66,11 +66,3 @@ export default Redux.connect(
     }
   }
 )(AllPolls);
-
-
-// State polls
-// firebase fetch user polls once and on everytime component mounts
-// All polls with nested routes
-
-// On fetch Get all polls into the state.
-// Map the state and create nested routes.
