@@ -67,12 +67,14 @@ class NewPoll extends Component {
 
   handleSubmit(e){
     e.preventDefault();
-    var {dispatch, capturedInputs} = this.props;
+    var {dispatch, capturedInputs, uid} = this.props;
 
     //push to firebase under userid
-
-    dispatch(actions.startAddPoll(capturedInputs));
-
+    if (!uid) {
+      alert("You must be logged in to create polls.")
+    } else {
+      dispatch(actions.startAddPoll(capturedInputs));
+    }
     //clear form input - reset all refs and reset options to 2
     var option_keys = Object.keys(this.refs);
     [this.refs].map((option)=>{
@@ -130,6 +132,7 @@ class NewPoll extends Component {
 export default Redux.connect(
   (state) => {
     return {
+      uid: state.auth.uid,
       options: state.pollInput.options,
       capturedInputs: state.pollInput.capturedInputs,
       polls: state.polls,

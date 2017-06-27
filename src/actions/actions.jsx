@@ -1,23 +1,13 @@
 import firebase, {firebaseRef, twitterProvider} from '../firebase/index.js';
 import axios from 'axios';
 
+
 //public polls reducer actions
 
 export var startAddPoll = (poll) => {
   return (dispatch, getState)=>{
 
     var uid = getState().auth.uid;
-
-    //there is no need to filter polls here
-    //this action should simply put polls in both nodes
-    //rewrite code here
-    //on delete apply this filter
-
-    //push poll to user uid polls
-    //fetch all polls into an array
-    //fetch all public polls into an array
-    //filter polls not in publicpolls
-    //push result to publicpolls
     var userPolls = [];
     var publicPolls = [];
 
@@ -203,7 +193,6 @@ export var deletePoll = (pollID)=>{
 
 export var getUserIP = ()=>{
   return (dispatch, getState) =>{
-
     axios.get('https://api.ipify.org?format=json').then((res)=>{
       dispatch(setUserIP(res.data.ip));
     });

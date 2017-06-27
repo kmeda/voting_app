@@ -57,7 +57,7 @@ class MakePoll extends Component {
         usersVoted,
         ipVoted
       })
-      console.log(votedPoll);
+
 
     } else if (selectedOption === "Select" || selectedOption.length === 0) {
       alert("Error, choose an option.");
@@ -84,7 +84,7 @@ class MakePoll extends Component {
       if (userIP) {
         var ipVoted = [...poll.ipVoted, userIP];
       } else {
-        var ipVoted = [...poll.ipVoted];  
+        var ipVoted = [...poll.ipVoted];
       }
 
 
@@ -95,7 +95,7 @@ class MakePoll extends Component {
         usersVoted,
         ipVoted
       })
-      console.log(votedPoll[0]);
+
     }
 
     dispatch(actions.updatePollToFirebase(votedPoll[0], match.params.id));
