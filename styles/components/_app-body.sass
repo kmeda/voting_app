@@ -1,24 +1,23 @@
 .app-body
-  height: 100vh
-  width: 92%
+  height: 100%
+  width: 1180px
   display: flex
   justify-content: center
   align-items: center
   background-color: rgba(238, 238, 238, 0.5)
 
 .app-body-inner
-  height: 100vh
+  height: 100%
   width: 100%
   display: flex
   justify-content: space-around
   align-items: center
 
-
 .polls-container
   padding-top: 5px
   width: 43%
   margin-top: 10px
-  height: 85vh
+  height: 85%
   box-shadow: 0 1px 10px rgba(0,0,0,0.5)
   text-align: center
   overflow: auto
@@ -62,6 +61,17 @@
       display: flex
       justify-content: center
       align-items: center
+.poll-list-item
+  position: relative
+
+.remove-poll
+  position: absolute
+  right: 15px
+  top: 15px
+  cursor: pointer
+  &:hover
+    color: red
+
 
 
 .welcome-message

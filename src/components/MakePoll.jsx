@@ -28,6 +28,7 @@ class MakePoll extends Component {
   handleSubmit(e){
     e.preventDefault();
     var {uid, userIP, selectedOption, poll, dispatch, match} = this.props;
+    dispatch(actions.getPoll(match.params.id));
 
     var votedPoll = [];
 
@@ -80,8 +81,12 @@ class MakePoll extends Component {
       } else {
         var usersVoted = [...poll.usersVoted];
       }
+      if (userIP) {
+        var ipVoted = [...poll.ipVoted, userIP];
+      } else {
+        var ipVoted = [...poll.ipVoted];  
+      }
 
-      var ipVoted = [...poll.ipVoted, userIP];
 
       votedPoll.push({
         ...poll,

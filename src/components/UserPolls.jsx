@@ -18,17 +18,15 @@ componentDidMount(){
   dispatch(actions.startAddUserPolls());
 }
 
+handleClick(id){
+    alert(`Delete me ${id}`);
+}
 
 renderPollList(){
 
   var publicPolls = this.props.publicPolls[0];
   var {userPollsKeys} = this.props;
   var {match} = this.props;
-
-
-  //Clear current publicPolls
-  //apply filter
-  //render the list
 
   if (publicPolls) {
 
@@ -44,7 +42,14 @@ renderPollList(){
       <ul className="list-group">
       {
         filteredUserPolls.map((poll)=>{
-          return <Link to={`${match.url}/${poll.id}/${poll.pollName}`} key={poll.id}><li className="list-group-item">{poll.pollName}</li></Link>
+          return (
+            <div className="poll-list-item" key={poll.id}>
+            <Link to={`${match.url}/${poll.id}/${poll.pollName}`}>
+              <li className="list-group-item">{poll.pollName}</li>
+            </Link>
+            <div className="glyphicon glyphicon-remove remove-poll" onClick={this.handleClick.bind(this, poll.id)}></div>
+            </div>
+          )
         })
         }
       </ul>
@@ -55,7 +60,6 @@ renderPollList(){
 }
 
 render(){
-
     return (
       <div className="polls-container">
         <h4>My Polls</h4>
@@ -74,11 +78,3 @@ export default Redux.connect(
     }
   }
 )(UserPolls);
-
-
-// State polls
-// firebase fetch user polls once and on everytime component mounts
-// All polls with nested routes
-
-// On fetch Get all polls into the state.
-// Map the state and create nested routes.
