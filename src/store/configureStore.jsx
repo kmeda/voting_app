@@ -26,6 +26,6 @@ export var configure = (initialState = {}) => {
               redux.compose(redux.applyMiddleware(thunk),
               window.devToolsExtension ? window.devToolsExtension() : f => f
               ));
-              
+
   return store;
 };
