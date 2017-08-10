@@ -50,6 +50,7 @@
     "request-ip": "^2.0.1",
     "rimraf": "^2.5.4",
     "sass-loader": "^6.0.5",
+    "serve-favicon": "^2.4.3",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.9",
     "webpack": "^2.2.0-rc.0",
