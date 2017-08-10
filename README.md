@@ -1,9 +1,6 @@
 # voting_app
 
-# voting_app
-
 Freecodecamp Backend project.
-
 
 This project requires that users can create and vote on a poll.
 
