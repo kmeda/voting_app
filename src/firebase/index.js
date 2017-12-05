@@ -14,7 +14,6 @@ if(process.env.NODE_ENV == 'production'){
   var config = require('../../config/config').config;
 }
 
-
 console.log(process.env.NODE_ENV);
 console.log(config);
 firebase.initializeApp(config);
