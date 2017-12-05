@@ -1,6 +1,9 @@
 import firebase from 'firebase';
 
-if(process.env.NODE_ENV == 'production'){
+if(process.env.NODE_ENV !== 'production'){
+  var config = require('../../config/config').config;
+  console.log("Inside if")
+} else {
   var config = {
     apiKey: process.env.API_KEY,
     authDomain: process.env.AUTH_DOMAIN,
@@ -9,9 +12,6 @@ if(process.env.NODE_ENV == 'production'){
     storageBucket: process.env.STORAGE_BUCKET,
     messagingSenderId: process.env.MESSAGING_SENDER_ID
   };
-  
-} else {
-  var config = require('../../config/config').config;
 }
 
 console.log(process.env.NODE_ENV);
