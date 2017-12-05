@@ -248,7 +248,7 @@ export var login = (uid, name, photoURL) =>{
 export var startLogin = () => {
   return (dispatch, getState)=>{
     return firebase.auth().signInWithPopup(twitterProvider).then((result )=>{
-      console.log("Auth Worked", result);
+  
     }, (error)=>{
       console.log("Unable to Auth.", error);
     });
@@ -264,7 +264,7 @@ export var logout = ()=>{
 export var startLogout = () => {
   return (dispatch, getState)=>{
     return firebase.auth().signOut().then(()=> {
-  console.log("Logged out!");
+  
 });
   };
 }
