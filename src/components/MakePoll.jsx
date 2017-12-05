@@ -119,7 +119,7 @@ class MakePoll extends Component {
           return (
             <div>
               <br/>
-              <input type="text" ref="customOption" placeholder="Type in and submit to vote.."/>
+              <input className="custom-input" type="text" ref="customOption" placeholder="Type in and submit to vote"/>
             </div>
         )
       } else {
