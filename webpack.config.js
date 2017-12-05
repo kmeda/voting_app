@@ -79,7 +79,7 @@ module.exports = {
     port: 8080,
     disableHostCheck: true
   },
-
+  
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
@@ -98,6 +98,7 @@ module.exports = {
      $: "jquery",
      jQuery: "jquery"
    }),
+    new webpack.EnvironmentPlugin(Object.keys(process.env)),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
