@@ -11,6 +11,7 @@ try {
     };
     
     console.log(process.env.API_KEY);
+    console.log(config);
     
     firebase.initializeApp(config);
 } catch (e) {
