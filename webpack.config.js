@@ -98,7 +98,6 @@ module.exports = {
      $: "jquery",
      jQuery: "jquery"
    }),
-    new webpack.EnvironmentPlugin(Object.keys(process.env)),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
