@@ -9,10 +9,9 @@ try {
         storageBucket: process.env.STORAGE_BUCKET,
         messagingSenderId: process.env.MESSAGING_SENDER_ID
     };
-    
-    console.log(process.env.API_KEY);
+ 
     console.log(config);
-    
+
     firebase.initializeApp(config);
 } catch (e) {
     console.log(e);

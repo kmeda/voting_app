@@ -17,3 +17,4 @@ app.listen(process.env.PORT || 3050, function() {
   console.log('Listening')
 });
 
+console.log(process.env);
